@@ -3,30 +3,31 @@ include '../db.php';
 
 header('Content-Type: application/json');
 
-$id      = $_POST['id'];
-$nim     = $_POST['nim'];
-$nama    = $_POST['nama'];
-$alamat  = $_POST['alamat'];
-$no_telp = $_POST['no_telp'];
+$anak_id      = $_POST['anak_id'];
+$nama_anak    = $_POST['nama_anak'];
+$usia_bulan   = $_POST['usia_bulan'];
+$berat_badan  = $_POST['berat_badan'];
+$tinggi_badan = $_POST['tinggi_badan'];
 
 $stmt = $conn->prepare("
-    UPDATE tb_mahasiswa 
-    SET nim = ?, nama = ?, alamat = ?, no_telp = ?
-    WHERE id = ?
+    UPDATE anak 
+    SET nama_anak = ?, usia_bulan = ?, berat_badan = ?, tinggi_badan = ?
+    WHERE anak_id = ?
 ");
-$stmt->bind_param("ssssi", $nim, $nama, $alamat, $no_telp, $id);
+$stmt->bind_param("siddi", $nama_anak, $usia_bulan, $berat_badan, $tinggi_badan, $anak_id);
+
 
 if ($stmt->execute()) {
 
     echo json_encode([
         "status"  => "success",
-        "message" => "Data berhasil diperbarui",
+        "message" => "Data anak berhasil diperbarui",
         "data"    => [
-            "id"      => $id,
-            "nim"     => $nim,
-            "nama"    => $nama,
-            "alamat"  => $alamat,
-            "no_telp" => $no_telp
+            "anak_id"      => $anak_id,
+            "nama_anak"    => $nama_anak,
+            "usia_bulan"   => $usia_bulan,
+            "berat_badan"  => $berat_badan,
+            "tinggi_badan" => $tinggi_badan
         ]
     ]);
 

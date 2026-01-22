@@ -3,16 +3,24 @@ include_once '../db.php';
 
 header('Content-Type: application/json');
 
-$nim     = $_POST['nim'];
-$nama    = $_POST['nama'];
-$alamat  = $_POST['alamat'];
-$no_telp = $_POST['no_telp'];
+$user_id      = $_POST['user_id'];
+$nama_anak    = $_POST['nama_anak'];
+$usia_bulan   = $_POST['usia_bulan'];
+$berat_badan  = $_POST['berat_badan'];
+$tinggi_badan = $_POST['tinggi_badan'];
 
 $stmt = $conn->prepare("
-    INSERT INTO tb_mahasiswa (nim, nama, alamat, no_telp)
-    VALUES (?, ?, ?, ?)
+    INSERT INTO anak (user_id, nama_anak, usia_bulan, berat_badan, tinggi_badan, tanggal_input)
+    VALUES (?, ?, ?, ?, ?, NOW())
 ");
-$stmt->bind_param("ssss", $nim, $nama, $alamat, $no_telp);
+$stmt->bind_param(
+    "isidd",
+    $user_id,
+    $nama_anak,
+    $usia_bulan,
+    $berat_badan,
+    $tinggi_badan
+);
 
 if ($stmt->execute()) {
 
@@ -20,10 +28,11 @@ if ($stmt->execute()) {
         "status"  => "success",
         "message" => "Data berhasil ditambahkan",
         "data"    => [
-            "nim"     => $nim,
-            "nama"    => $nama,
-            "alamat"  => $alamat,
-            "no_telp" => $no_telp
+            "user_id"      => $user_id,
+            "nama_anak"    => $nama_anak,
+            "usia_bulan"   => $usia_bulan,
+            "berat_badan"  => $berat_badan,
+            "tinggi_badan" => $tinggi_badan
         ]
     ]);
 
