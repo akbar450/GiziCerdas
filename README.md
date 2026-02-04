@@ -17,15 +17,16 @@ Gizi Cerdas adalah aplikasi backend berbasis **PHP** dan **MySQL** yang digunaka
 
 ### 1. Tabel `users`
 
-| Kolom          | Tipe Data | Keterangan            |
-| -------------- | --------- | --------------------- |
-| user_id        | INT       | Primary Key           |
-| nama_lengkap   | VARCHAR   | Nama lengkap pengguna |
-| email          | VARCHAR   | Email pengguna        |
-| password       | VARCHAR   | Password (hash)       |
-| usia           | INT       | Usia pengguna         |
-| provinsi       | VARCHAR   | Provinsi domisili     |
-| tanggal_daftar | DATE      | Tanggal pendaftaran   |
+| Kolom          | Tipe Data | Keterangan                  |
+| -------------- | --------- | --------------------------- |
+| user_id        | INT       | Primary Key, Auto Increment |
+| nama_lengkap   | VARCHAR   | Nama lengkap pengguna       |
+| email          | VARCHAR   | Email pengguna              |
+| password       | VARCHAR   | Password pengguna (hash)    |
+| usia           | INT       | Usia pengguna               |
+| provinsi       | VARCHAR   | Provinsi domisili pengguna  |
+| tanggal_daftar | DATE      | Tanggal pendaftaran         |
+
 
 ---
 
@@ -107,12 +108,132 @@ Contoh path endpoint:
 
 ---
 
-## Contoh Endpoint
+## Dokumentasi Modul Users
 
-### CREATE – Menambahkan Data Anak
+Modul **Users** digunakan untuk mengelola data pengguna aplikasi Gizi Cerdas. Modul ini mencakup operasi CRUD (Create, Read, Update, Delete) dan digunakan sebagai dasar relasi dengan modul lain seperti `anak` dan `notifikasi`.
+
+---
+
+### Struktur Data Users
+
+| Field          | Tipe Data | Keterangan            |
+| -------------- | --------- | --------------------- |
+| user_id        | int       | Primary Key           |
+| nama_lengkap   | string    | Nama lengkap pengguna |
+| email          | string    | Email pengguna        |
+| password       | string    | Password (hash)       |
+| usia           | int       | Usia pengguna         |
+| provinsi       | string    | Provinsi domisili     |
+| tanggal_daftar | date      | Tanggal pendaftaran   |
+
+---
+
+### CREATE – Menambahkan Data User
 
 **URL**
-`/anak/create.php`
+`/users/create.php`
+
+**Method**
+POST
+
+**Parameter**
+
+* nama_lengkap (string)
+* email (string)
+* password (string)
+* usia (int)
+* provinsi (string)
+
+**Contoh Request**
+
+```bash
+curl -X POST \
+-d "nama_lengkap=Rina Pratiwi" \
+-d "email=rina@gmail.com" \
+-d "password=hashpass1" \
+-d "usia=23" \
+-d "provinsi=Kalimantan Selatan" \
+http://localhost/gizi-cerdas/users/create.php
+```
+
+**Contoh Response Sukses**
+
+```json
+{
+    "status": "success",
+    "message": "Data berhasil ditambahkan",
+    "data": {
+        "nama_lengkap": "Rina Pratiwi",
+        "email": "rina@gmail.com",
+        "usia": "23",
+        "provinsi": "Kalimantan Selatan"
+    }
+}
+```
+
+**Contoh Response Error**
+
+```json
+{
+  "status": "error",
+  "message": "Error message here"
+}
+```
+
+---
+
+### READ – Menampilkan Data User
+
+**URL**
+`/users/read.php`
+
+**Method**
+GET
+
+**Parameter (Opsional)**
+
+* user_id (int)
+
+**Contoh Request**
+
+```bash
+curl http://localhost/gizi-cerdas/users/read.php
+```
+
+**Contoh Response Sukses**
+
+```json
+{
+  "status": "success",
+  "data": [
+    {
+      "user_id": 1,
+      "nama_lengkap": "Rina Pratiwi",
+      "email": "rina@gmail.com",
+      "usia": 23,
+      "provinsi": "Kalimantan Selatan",
+      "tanggal_daftar": "2025-01-10"
+    }
+  ]
+}
+```
+
+**Contoh Response Sukses (Data Kosong)**
+
+```json
+{
+  "status": "success",
+  "message": "Data user kosong",
+  "data": []
+}
+```
+
+---
+
+### UPDATE – Memperbarui Data User
+
+**URL**
+`/users/update.php`
 
 **Method**
 POST
@@ -120,92 +241,143 @@ POST
 **Parameter**
 
 * user_id (int)
-* nama_anak (string)
-* usia_bulan (int)
-* berat_badan (float)
-* tinggi_badan (float)
-* tanggal_input (date)
+* nama_lengkap (string)
+* usia (int)
+* provinsi (string)
+
+**Contoh Request**
+
+```bash
+curl -X POST \
+-d "user_id=1" \
+-d "nama_lengkap=Rina P. Updated" \
+-d "usia=24" \
+-d "provinsi=Kalimantan Timur" \
+http://localhost/gizi-cerdas/users/update.php
+```
+
+**Contoh Response Sukses**
+
+```json
+{
+  "status": "success",
+  "message": "Data user berhasil diperbarui"
+}
+```
+
+**Contoh Response Error**
+
+```json
+{
+  "status": "error",
+  "message": "User tidak ditemukan"
+}
+```
 
 ---
 
-### READ JOIN – Data Anak & Pertumbuhan
+### DELETE – Menghapus Data User
 
 **URL**
-`/anak/read_join.php`
-
-**Method**
-GET
-
-**Deskripsi**
-Mengambil data anak beserta riwayat pertumbuhan dengan JOIN antara tabel `anak` dan `pertumbuhan_anak`.
-
----
-
-### CREATE – Menambahkan Edukasi Gizi
-
-**URL**
-`/edukasi_gizi/create.php`
-
-**Method**
-POST
-
-**Parameter**
-
-* judul
-* kategori
-* isi
-
----
-
-### CREATE – Menambahkan Data Pertumbuhan Anak
-
-**URL**
-`/pertumbuhan_anak/create.php`
+`/users/delete.php`
 
 **Method**
 POST
 
 **Parameter**
 
-* anak_id
-* berat_badan
-* tinggi_badan
-* tanggal_catat
-* keterangan
+* user_id (int)
+
+**Contoh Request**
+
+```bash
+curl -X POST \
+-d "user_id=1" \
+http://localhost/gizi-cerdas/users/delete.php
+```
+
+**Contoh Response Sukses**
+
+```json
+{
+  "status": "success",
+  "message": "Data user berhasil dihapus"
+}
+```
+
+**Contoh Response Error**
+
+```json
+{
+  "status": "error",
+  "message": "Error message here"
+}
+```
 
 ---
 
-### READ JOIN – Notifikasi & Users
+> Dokumentasi modul **Users** ini menjadi dasar untuk modul lain yang memiliki relasi Foreign Key, seperti `anak` dan `notifikasi`.
+
+---
+
+### READ JOIN – Users & Notifikasi
+
+Endpoint JOIN ini digunakan untuk menampilkan data **user beserta notifikasi yang diterimanya**, dengan menggabungkan tabel `users` dan `notifikasi` berdasarkan `user_id`.
 
 **URL**
-`/notifikasi/read_join.php`
+`/users/read_join.php`
 
 **Method**
 GET
 
-**Deskripsi**
-Menampilkan data notifikasi beserta informasi pengguna (JOIN tabel `notifikasi` dan `users`).
+**Parameter (Opsional)**
+
+* user_id (int) – untuk menampilkan notifikasi milik user tertentu
+
+**Contoh Request**
+
+```bash
+curl http://localhost/gizi-cerdas/users/read_join.php?user_id=1
+```
+
+**Contoh Response Sukses**
+
+```json
+{
+  "status": "success",
+  "data": [
+    {
+      "user_id": 1,
+      "nama_lengkap": "Rina Pratiwi",
+      "email": "rina@gmail.com",
+      "judul": "Pengingat MPASI",
+      "pesan": "Waktunya memberikan MPASI",
+      "tanggal_kirim": "2025-01-20 08:00:00",
+      "status_notifikasi": "terkirim"
+    }
+  ]
+}
+```
+
+**Contoh Response Sukses (Data Kosong)**
+
+```json
+{
+  "status": "success",
+  "message": "Data notifikasi tidak ditemukan",
+  "data": []
+}
+```
+
+**Contoh Response Error**
+
+```json
+{
+  "status": "error",
+  "message": "Error message here"
+}
+```
 
 ---
 
-## Instalasi
-
-1. Clone repository GitHub
-2. Jalankan Laragon / XAMPP
-3. Import database MySQL sesuai struktur tabel
-4. Atur koneksi database di file `db.php`
-5. Akses endpoint menggunakan browser atau Postman
-
----
-
-## Catatan Teknis
-
-* Semua endpoint mengembalikan respons dalam format JSON
-* Menggunakan prepared statement (aman dari SQL Injection)
-* Struktur backend modular dan mudah dikembangkan
-
----
-
-## Penutup
-
-Dokumentasi ini disusun sebagai panduan penggunaan backend **Gizi Cerdas** agar mudah dipahami, diuji, dan dikembangkan lebih lanjut, baik untuk kebutuhan akademik maupun pengembangan aplikasi nyata.
+> Dengan adanya endpoint JOIN ini, modul **Users** dapat digunakan untuk menampilkan riwayat notifikasi pengguna, yang umumnya dibutuhkan pada halaman dashboard atau profil pengguna.
