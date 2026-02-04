@@ -152,7 +152,7 @@ curl -X POST \
 -d "password=hashpass1" \
 -d "usia=23" \
 -d "provinsi=Kalimantan Selatan" \
-http://localhost/gizi-cerdas/users/create.php
+http://localhost/BE-Latihan-kelas/users/create.php
 ```
 
 **Contoh Response Sukses**
@@ -196,7 +196,7 @@ GET
 **Contoh Request**
 
 ```bash
-curl http://localhost/gizi-cerdas/users/read.php
+curl http://localhost/BE-Latihan-kelas/users/read.php
 ```
 
 **Contoh Response Sukses**
@@ -252,7 +252,7 @@ curl -X POST \
 -d "nama_lengkap=Rina P. Updated" \
 -d "usia=24" \
 -d "provinsi=Kalimantan Timur" \
-http://localhost/gizi-cerdas/users/update.php
+http://localhost/BE-Latihan-kelas/users/update.php
 ```
 
 **Contoh Response Sukses**
@@ -292,7 +292,7 @@ POST
 ```bash
 curl -X POST \
 -d "user_id=1" \
-http://localhost/gizi-cerdas/users/delete.php
+http://localhost/BE-Latihan-kelas/users/delete.php
 ```
 
 **Contoh Response Sukses**
@@ -336,7 +336,7 @@ GET
 **Contoh Request**
 
 ```bash
-curl http://localhost/gizi-cerdas/users/read_join.php?user_id=1
+curl http://localhost/BE-Latihan-kelas/users/read_join.php?user_id=1
 ```
 
 **Contoh Response Sukses**
