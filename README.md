@@ -315,7 +315,7 @@ http://localhost/gizi-cerdas/users/delete.php
 
 ---
 
-> Dokumentasi modul **Users** ini menjadi dasar untuk modul lain yang memiliki relasi Foreign Key, seperti `anak` dan `notifikasi`.
+> Dokumentasi modul **Users** ini menjadi dasar untuk modul lain yang memiliki relasi Foreign Key, seperti `anak` dan `notifikasi` dll.
 
 ---
 
@@ -382,3 +382,19 @@ curl http://localhost/gizi-cerdas/users/read_join.php?user_id=1
 > Dengan adanya endpoint JOIN ini, modul **Users** dapat digunakan untuk menampilkan riwayat notifikasi pengguna, yang umumnya dibutuhkan pada halaman dashboard atau profil pengguna.
 
 
+### Instalasi
+---
+1. Pastikan Anda memiliki server web dengan PHP dan MySQL
+2. Salin semua file ke direktori web server Anda
+3. Buat database MySQL dan import struktur tabel sesuai dengan deskripsi di atas
+4. Konfigurasi koneksi database di file db.php
+5. Akses endpoint sesuai kebutuhan
+
+---
+
+### Catatan
+1. Semua endpoint mengembalikan respons dalam format JSON
+2. Gunakan metode POST untuk CREATE, UPDATE, dan DELETE
+3. Gunakan metode GET untuk READ
+4. Gunakan prepared statements untuk mencegah SQL injection
+5. Pastikan untuk selalu mengecek status respons sebelum memproses data lebih lanjut
