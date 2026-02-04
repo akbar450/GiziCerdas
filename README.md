@@ -387,7 +387,7 @@ curl http://localhost/BE-Latihan-kelas/users/read_join.php?user_id=1
 1. Pastikan Anda memiliki server web dengan PHP dan MySQL
 2. Salin semua file ke direktori web server Anda
 3. Buat database MySQL dan import struktur tabel sesuai dengan deskripsi di atas
-4. Konfigurasi koneksi database di file db.php
+4. Konfigurasi koneksi database di file `db.php`
 5. Akses endpoint sesuai kebutuhan
 
 ---
