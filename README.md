@@ -382,7 +382,7 @@ curl http://localhost/gizi-cerdas/users/read_join.php?user_id=1
 > Dengan adanya endpoint JOIN ini, modul **Users** dapat digunakan untuk menampilkan riwayat notifikasi pengguna, yang umumnya dibutuhkan pada halaman dashboard atau profil pengguna.
 
 
-
+---
 
 
 ## Dokumentasi Modul Anak
