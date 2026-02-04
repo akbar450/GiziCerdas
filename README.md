@@ -454,7 +454,7 @@ http://localhost/gizi-cerdas/anak/create.php
 ```json
 {
   "status": "error",
-  "message": "Eror messege here"
+  "message": "Eror message here"
 }
 ```
 
@@ -551,7 +551,7 @@ http://localhost/gizi-cerdas/anak/update.php
 ```json
 {
   "status": "error",
-  "message": "Eror messege here"
+  "message": "Eror message here"
 }
 ```
 
@@ -591,7 +591,7 @@ http://localhost/gizi-cerdas/anak/delete.php
 ```json
 {
   "status": "error",
-  "message": "Eror messege here"
+  "message": "Eror message here"
 }
 ```
 
@@ -639,7 +639,7 @@ Menampilkan data anak beserta informasi pengguna (JOIN tabel `anak` dan `users`)
 ```json
 {
   "status": "error",
-  "message": "Eror messege here"
+  "message": "Eror message here"
 }
 ```
 
