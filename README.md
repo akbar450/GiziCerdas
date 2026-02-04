@@ -384,6 +384,7 @@ curl http://localhost/gizi-cerdas/users/read_join.php?user_id=1
 
 
 
+
 ## Dokumentasi Modul Anak
 
 Modul **Anak** digunakan untuk mengelola data anak yang terhubung dengan data pengguna (`users`) serta menjadi dasar pencatatan pertumbuhan anak. Modul ini mendukung operasi **CRUD** dan **JOIN**.
@@ -454,7 +455,7 @@ http://localhost/gizi-cerdas/anak/create.php
 ```json
 {
   "status": "error",
-  "message": "Eror message here"
+  "message": "Error message here"
 }
 ```
 
@@ -551,7 +552,7 @@ http://localhost/gizi-cerdas/anak/update.php
 ```json
 {
   "status": "error",
-  "message": "Eror message here"
+  "message": "Error message here"
 }
 ```
 
@@ -591,7 +592,7 @@ http://localhost/gizi-cerdas/anak/delete.php
 ```json
 {
   "status": "error",
-  "message": "Eror message here"
+  "message": "Error message here"
 }
 ```
 
@@ -639,7 +640,7 @@ Menampilkan data anak beserta informasi pengguna (JOIN tabel `anak` dan `users`)
 ```json
 {
   "status": "error",
-  "message": "Eror message here"
+  "message": "Error message here"
 }
 ```
 
