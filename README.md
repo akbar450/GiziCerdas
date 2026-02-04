@@ -270,7 +270,7 @@ http://localhost/gizi-cerdas/users/update.php
 ```json
 {
   "status": "error",
-  "message": "User tidak ditemukan"
+  "message": "Error message here"
 }
 ```
 
