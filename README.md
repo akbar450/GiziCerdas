@@ -1,6 +1,6 @@
 # Gizi Cerdas – Backend API
 
-Gizi Cerdas adalah aplikasi backend berbasis **PHP** dan **MySQL** yang digunakan untuk mengelola data pengguna (orang tua), data anak, edukasi gizi, pertumbuhan anak, serta notifikasi. Backend ini menyediakan **endpoint CRUD (Create, Read, Update, Delete)** dan **JOIN** dengan format respons **JSON**, sehingga mudah diintegrasikan dengan aplikasi web maupun mobile.
+Gizi Cerdas adalah aplikasi backend berbasis **PHP** dan **MySQL** yang digunakan untuk memantau dan mengelola data gizi anak, mulai dari data pengguna, data anak, edukasi gizi, pertumbuhan anak, hingga notifikasi. Seluruh endpoint disusun dalam bentuk **CRUD (Create, Read, Update, Delete)** serta **JOIN**, dan seluruh respons dikembalikan dalam format **JSON**.
 
 ---
 
@@ -8,18 +8,88 @@ Gizi Cerdas adalah aplikasi backend berbasis **PHP** dan **MySQL** yang digunaka
 
 * PHP (Native)
 * MySQL / MariaDB
-* JSON (Response API)
-* Laragon / XAMPP (Local Server)
+* JSON (API Response)
+* Laragon / XAMPP
 
 ---
 
-## Daftar Modul
+## Struktur Database
 
-1. **Users** – Manajemen data pengguna
-2. **Anak** – Manajemen data anak
-3. **Edukasi Gizi** – Konten edukasi gizi
-4. **Pertumbuhan Anak** – Data berat dan tinggi badan anak
-5. **Notifikasi** – Pemberitahuan sistem
+### 1. Tabel `users`
+
+| Kolom          | Tipe Data | Keterangan            |
+| -------------- | --------- | --------------------- |
+| user_id        | INT       | Primary Key           |
+| nama_lengkap   | VARCHAR   | Nama lengkap pengguna |
+| email          | VARCHAR   | Email pengguna        |
+| password       | VARCHAR   | Password (hash)       |
+| usia           | INT       | Usia pengguna         |
+| provinsi       | VARCHAR   | Provinsi domisili     |
+| tanggal_daftar | DATE      | Tanggal pendaftaran   |
+
+---
+
+### 2. Tabel `anak`
+
+| Kolom         | Tipe Data | Keterangan          |
+| ------------- | --------- | ------------------- |
+| anak_id       | INT       | Primary Key         |
+| user_id       | INT       | Foreign Key (users) |
+| nama_anak     | VARCHAR   | Nama anak           |
+| usia_bulan    | INT       | Usia anak (bulan)   |
+| berat_badan   | DECIMAL   | Berat badan         |
+| tinggi_badan  | DECIMAL   | Tinggi badan        |
+| tanggal_input | DATE      | Tanggal input data  |
+
+---
+
+### 3. Tabel `edukasi_gizi`
+
+| Kolom           | Tipe Data | Keterangan        |
+| --------------- | --------- | ----------------- |
+| edukasi_id      | INT       | Primary Key       |
+| judul           | VARCHAR   | Judul edukasi     |
+| kategori        | VARCHAR   | Kategori edukasi  |
+| isi             | TEXT      | Isi konten        |
+| tanggal_publish | DATE      | Tanggal publikasi |
+
+---
+
+### 4. Tabel `pertumbuhan_anak`
+
+| Kolom          | Tipe Data | Keterangan          |
+| -------------- | --------- | ------------------- |
+| pertumbuhan_id | INT       | Primary Key         |
+| anak_id        | INT       | Foreign Key (anak)  |
+| berat_badan    | DECIMAL   | Berat badan         |
+| tinggi_badan   | DECIMAL   | Tinggi badan        |
+| tanggal_catat  | DATE      | Tanggal pencatatan  |
+| keterangan     | VARCHAR   | Catatan pertumbuhan |
+
+---
+
+### 5. Tabel `notifikasi`
+
+| Kolom         | Tipe Data | Keterangan          |
+| ------------- | --------- | ------------------- |
+| notifikasi_id | INT       | Primary Key         |
+| user_id       | INT       | Foreign Key (users) |
+| judul         | VARCHAR   | Judul notifikasi    |
+| pesan         | TEXT      | Isi pesan           |
+| tanggal_kirim | DATETIME  | Waktu pengiriman    |
+| status        | VARCHAR   | Status notifikasi   |
+
+---
+
+## Daftar Modul & Endpoint
+
+Modul yang tersedia:
+
+1. Users
+2. Anak
+3. Edukasi Gizi
+4. Pertumbuhan Anak
+5. Notifikasi
 
 Setiap modul memiliki endpoint:
 
@@ -27,7 +97,7 @@ Setiap modul memiliki endpoint:
 * `read.php`
 * `update.php`
 * `delete.php`
-* `read_join.php` (JOIN)
+* `read_join.php`
 
 Contoh path endpoint:
 
@@ -37,79 +107,7 @@ Contoh path endpoint:
 
 ---
 
-## 1. Modul Users
-
-### CREATE – Menambahkan User
-
-**URL**
-`/users/create.php`
-
-**Method**
-POST
-
-**Parameter**
-
-* username (string)
-* password (string)
-* role (string)
-
-**Contoh Request**
-
-```bash
-curl -X POST \
--d "username=admin" \
--d "password=admin123" \
--d "role=admin" \
-http://localhost/gizi-cerdas/users/create.php
-```
-
----
-
-### READ – Menampilkan Data User
-
-**URL**
-`/users/read.php`
-
-**Method**
-GET
-
-**Parameter (Opsional)**
-
-* user_id
-
----
-
-### UPDATE – Memperbarui Data User
-
-**URL**
-`/users/update.php`
-
-**Method**
-POST
-
-**Parameter**
-
-* user_id
-* username
-* role
-
----
-
-### DELETE – Menghapus User
-
-**URL**
-`/users/delete.php`
-
-**Method**
-POST
-
-**Parameter**
-
-* user_id
-
----
-
-## 2. Modul Anak
+## Contoh Endpoint
 
 ### CREATE – Menambahkan Data Anak
 
@@ -123,19 +121,10 @@ POST
 
 * user_id (int)
 * nama_anak (string)
-* tanggal_lahir (date)
-* jenis_kelamin (string)
-
-**Contoh Request**
-
-```bash
-curl -X POST \
--d "user_id=1" \
--d "nama_anak=Budi" \
--d "tanggal_lahir=2022-01-01" \
--d "jenis_kelamin=L" \
-http://localhost/gizi-cerdas/anak/create.php
-```
+* usia_bulan (int)
+* berat_badan (float)
+* tinggi_badan (float)
+* tanggal_input (date)
 
 ---
 
@@ -148,25 +137,11 @@ http://localhost/gizi-cerdas/anak/create.php
 GET
 
 **Deskripsi**
-Menampilkan data anak beserta riwayat pertumbuhan menggunakan JOIN antara tabel `anak` dan `pertumbuhan_anak`.
-
-**Contoh Response**
-
-```json
-{
-  "anak_id": 1,
-  "nama_anak": "Budi",
-  "berat_badan": 8.5,
-  "tinggi_badan": 72.4,
-  "tanggal_catat": "2025-01-15"
-}
-```
+Mengambil data anak beserta riwayat pertumbuhan dengan JOIN antara tabel `anak` dan `pertumbuhan_anak`.
 
 ---
 
-## 3. Modul Edukasi Gizi
-
-### CREATE – Menambahkan Konten Edukasi
+### CREATE – Menambahkan Edukasi Gizi
 
 **URL**
 `/edukasi_gizi/create.php`
@@ -176,24 +151,13 @@ POST
 
 **Parameter**
 
-* judul (string)
-* isi (text)
+* judul
+* kategori
+* isi
 
 ---
 
-### READ – Menampilkan Edukasi Gizi
-
-**URL**
-`/edukasi_gizi/read.php`
-
-**Method**
-GET
-
----
-
-## 4. Modul Pertumbuhan Anak
-
-### CREATE – Menambahkan Data Pertumbuhan
+### CREATE – Menambahkan Data Pertumbuhan Anak
 
 **URL**
 `/pertumbuhan_anak/create.php`
@@ -203,25 +167,7 @@ POST
 
 **Parameter**
 
-* anak_id (int)
-* berat_badan (float)
-* tinggi_badan (float)
-* tanggal_catat (date)
-* keterangan (string)
-
----
-
-### UPDATE – Memperbarui Data Pertumbuhan
-
-**URL**
-`/pertumbuhan_anak/update.php`
-
-**Method**
-POST
-
-**Parameter**
-
-* pertumbuhan_id
+* anak_id
 * berat_badan
 * tinggi_badan
 * tanggal_catat
@@ -229,24 +175,7 @@ POST
 
 ---
 
-## 5. Modul Notifikasi
-
-### CREATE – Menambahkan Notifikasi
-
-**URL**
-`/notifikasi/create.php`
-
-**Method**
-POST
-
-**Parameter**
-
-* user_id
-* pesan
-
----
-
-### READ JOIN – Notifikasi & User
+### READ JOIN – Notifikasi & Users
 
 **URL**
 `/notifikasi/read_join.php`
@@ -255,7 +184,7 @@ POST
 GET
 
 **Deskripsi**
-Menampilkan notifikasi beserta informasi user menggunakan JOIN antara tabel `notifikasi` dan `users`.
+Menampilkan data notifikasi beserta informasi pengguna (JOIN tabel `notifikasi` dan `users`).
 
 ---
 
@@ -263,9 +192,9 @@ Menampilkan notifikasi beserta informasi user menggunakan JOIN antara tabel `not
 
 1. Clone repository GitHub
 2. Jalankan Laragon / XAMPP
-3. Import database MySQL
-4. Atur koneksi database di `db.php`
-5. Akses endpoint melalui browser atau Postman
+3. Import database MySQL sesuai struktur tabel
+4. Atur koneksi database di file `db.php`
+5. Akses endpoint menggunakan browser atau Postman
 
 ---
 
@@ -273,11 +202,10 @@ Menampilkan notifikasi beserta informasi user menggunakan JOIN antara tabel `not
 
 * Semua endpoint mengembalikan respons dalam format JSON
 * Menggunakan prepared statement (aman dari SQL Injection)
-* Cocok digunakan sebagai backend REST API
-* Mudah dikembangkan untuk aplikasi mobile
+* Struktur backend modular dan mudah dikembangkan
 
 ---
 
 ## Penutup
 
-Dokumentasi ini disusun untuk memudahkan pengembangan dan integrasi backend **Gizi Cerdas**. Dengan struktur CRUD dan JOIN yang konsisten, sistem ini dapat dikembangkan lebih lanjut untuk kebutuhan monitoring gizi dan pertumbuhan anak secara berkelanjutan.
+Dokumentasi ini disusun sebagai panduan penggunaan backend **Gizi Cerdas** agar mudah dipahami, diuji, dan dikembangkan lebih lanjut, baik untuk kebutuhan akademik maupun pengembangan aplikasi nyata.
