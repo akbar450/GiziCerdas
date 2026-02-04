@@ -7,10 +7,9 @@ Gizi Cerdas adalah aplikasi backend berbasis **PHP** dan **MySQL** yang digunaka
 ## Teknologi yang Digunakan
 
 * PHP (Native)
-* MySQL / MariaDB
+* MySQL
 * JSON (API Response)
-* Laragon / XAMPP
-
+* Laragon (Local Server)
 ---
 
 ## Struktur Database
