@@ -518,44 +518,21 @@ GET
 
 ---
 
-# Instalasi
-
-1. Install Laragon / XAMPP
-2. Buat database MySQL
-3. Import seluruh struktur tabel
-4. Atur koneksi pada `db.php`
-5. Jalankan endpoint melalui browser / Postman
+## Instalasi
+---
+1. Pastikan Anda memiliki server web dengan PHP dan MySQL
+2. Salin semua file ke direktori web server Anda
+3. Buat database MySQL dan import struktur tabel sesuai dengan deskripsi di atas
+4. Konfigurasi koneksi database di file `db.php`
+5. Akses endpoint sesuai kebutuhan
 
 ---
 
-# Catatan Keamanan
-
-- Menggunakan prepared statements
-- Menghindari SQL Injection
-- Response dalam format JSON
-- Metode:
-  - GET → READ
-  - POST → CREATE / UPDATE / DELETE
-
----
-
-# Prinsip Perancangan
-
-- Database dinormalisasi hingga 3NF
-- Tidak ada redundansi data
-- Relasi foreign key konsisten
-- Pivot table digunakan untuk relasi many-to-many
-
----
-
-# Kesimpulan
-
-Backend Gizi Cerdas terdiri dari 10 tabel terstruktur dengan relasi yang jelas, mendukung manajemen:
-
-- Pengguna dan peran
-- Data anak dan pertumbuhan
-- Edukasi gizi
-- Notifikasi
-- Rekomendasi resep dan bahan pangan
+## Catatan
+1. Semua endpoint mengembalikan respons dalam format JSON
+2. Gunakan metode POST untuk CREATE, UPDATE, dan DELETE
+3. Gunakan metode GET untuk READ
+4. Gunakan prepared statements untuk mencegah SQL injection
+5. Pastikan untuk selalu mengecek status respons sebelum memproses data lebih lanjut
 
 Struktur ini siap dikembangkan lebih lanjut untuk kebutuhan mobile app atau sistem berbasis web.
