@@ -507,7 +507,7 @@ ON u.role_id = r.role_id;
 ## Catatan
 1. Semua endpoint mengembalikan respons dalam format JSON
 2. Gunakan metode POST untuk CREATE, UPDATE, dan DELETE
-3. Gunakan metode GET untuk READ
+3. Gunakan metode GET untuk READ dan JOIN
 4. Gunakan prepared statements untuk mencegah SQL injection
 5. Pastikan untuk selalu mengecek status respons sebelum memproses data lebih lanjut
 
