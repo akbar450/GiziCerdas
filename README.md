@@ -172,32 +172,6 @@ Relasi:
 
 ---
 
-# Daftar Modul & Endpoint
-
-Modul yang tersedia:
-
-1. Users
-2. Anak
-3. Edukasi Gizi
-4. Pertumbuhan Anak
-5. Notifikasi
-
-Setiap modul memiliki endpoint:
-
-* `create.php`
-* `read.php`
-* `update.php`
-* `delete.php`
-* `read_join.php`
-
-Contoh path endpoint:
-
-```
-/anak/create.php
-```
-
----
-
 
 # Jenis Relasi dalam Sistem
 
@@ -243,7 +217,7 @@ Modul **Users** digunakan untuk mengelola data pengguna aplikasi Gizi Cerdas. Mo
 
 ---
 
-## CREATE – Menambahkan Data User
+## 1. CREATE – Menambahkan Data User
 
 **URL**  
 `/users/create.php`
@@ -300,7 +274,7 @@ http://localhost/BE-Latihan-kelas/users/create.php
 
 ---
 
-## READ – Menampilkan Data User
+## 2. READ – Menampilkan Data User
 
 **URL**  
 `/users/read.php`
@@ -357,7 +331,7 @@ curl http://localhost/BE-Latihan-kelas/users/read.php?user_id=1
 
 ---
 
-## UPDATE – Memperbarui Data User
+## 3. UPDATE – Memperbarui Data User
 
 **URL**  
 `/users/update.php`
@@ -413,7 +387,7 @@ http://localhost/BE-Latihan-kelas/users/update.php
 
 ---
 
-## DELETE – Menghapus Data User
+## 4. DELETE – Menghapus Data User
 
 **URL**  
 `/users/delete.php`
@@ -453,7 +427,7 @@ http://localhost/BE-Latihan-kelas/users/delete.php
 
 ---
 
-# READ JOIN – Users & Roles
+# 5. READ JOIN – Users & Roles
 
 Endpoint JOIN ini digunakan untuk menampilkan data user beserta nama role yang dimiliki.
 
