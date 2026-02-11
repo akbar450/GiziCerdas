@@ -310,7 +310,9 @@ GET
 
 ### Parameter (Opsional)
 
-- user_id (int)
+- `user_id` (int) - Untuk mendapatkan data users berdasarkan ID
+
+Jika tidak ada parameter, maka akan mengembalikan semua data users.
 
 ### Contoh Request (Semua Data)
 
