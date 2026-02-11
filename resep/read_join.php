@@ -5,20 +5,26 @@ include "../db.php";
 
 $sql = "
     SELECT
-        anak.anak_id,
-        anak.nama_anak,
-        anak.usia_bulan,
-        anak.berat_badan,
-        anak.tinggi_badan,
-        anak.tanggal_input,
-        users.user_id,
-        users.nama_lengkap,
-        users.email,
-        users.provinsi
-    FROM anak
-    INNER JOIN users
-        ON anak.user_id = users.user_id
-    ORDER BY anak.anak_id ASC
+        r.resep_id,
+        r.nama_resep,
+        r.kategori,
+        r.estimasi_porsi,
+        r.kandungan_gizi,
+
+        rb.bahan_id,
+        rb.takaran,
+        rb.alternatif,
+
+        b.nama_bahan,
+        b.satuan,
+        b.asal_daerah
+
+    FROM resep r
+    INNER JOIN resep_bahan rb
+        ON r.resep_id = rb.resep_id
+    INNER JOIN bahan_pangan b
+        ON rb.bahan_id = b.bahan_id
+    ORDER BY r.resep_id ASC
 ";
 
 $result = $conn->query($sql);
@@ -30,15 +36,14 @@ if ($result && $result->num_rows > 0) {
         $data[] = $row;
     }
 
-
-echo json_encode([
+    echo json_encode([
         "status" => "success",
         "total_data" => count($data),
         "data" => $data
     ], JSON_PRETTY_PRINT);
 
 } else {
-    // Jika tidak ada data
+
     echo json_encode([
         "status" => "success",
         "total_data" => 0,
@@ -46,5 +51,5 @@ echo json_encode([
     ], JSON_PRETTY_PRINT);
 }
 
-// Tutup koneksi (opsional)
 $conn->close();
+?>

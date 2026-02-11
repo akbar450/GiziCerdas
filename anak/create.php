@@ -3,36 +3,35 @@ include_once '../db.php';
 
 header('Content-Type: application/json');
 
-$user_id      = $_POST['user_id'];
-$nama_anak    = $_POST['nama_anak'];
-$usia_bulan   = $_POST['usia_bulan'];
-$berat_badan  = $_POST['berat_badan'];
-$tinggi_badan = $_POST['tinggi_badan'];
+$user_id        = $_POST['user_id'];
+$nama_anak      = $_POST['nama_anak'];
+$tanggal_lahir  = $_POST['tanggal_lahir'];   // format: YYYY-MM-DD
+$jenis_kelamin  = $_POST['jenis_kelamin'];   // L / P
 
 $stmt = $conn->prepare("
-    INSERT INTO anak (user_id, nama_anak, usia_bulan, berat_badan, tinggi_badan, tanggal_input)
-    VALUES (?, ?, ?, ?, ?, NOW())
+    INSERT INTO anak 
+    (user_id, nama_anak, tanggal_lahir, jenis_kelamin)
+    VALUES (?, ?, ?, ?)
 ");
+
 $stmt->bind_param(
-    "isidd",
+    "isss",
     $user_id,
     $nama_anak,
-    $usia_bulan,
-    $berat_badan,
-    $tinggi_badan
+    $tanggal_lahir,
+    $jenis_kelamin
 );
 
 if ($stmt->execute()) {
 
     echo json_encode([
         "status"  => "success",
-        "message" => "Data berhasil ditambahkan",
+        "message" => "Data anak berhasil ditambahkan",
         "data"    => [
-            "user_id"      => $user_id,
-            "nama_anak"    => $nama_anak,
-            "usia_bulan"   => $usia_bulan,
-            "berat_badan"  => $berat_badan,
-            "tinggi_badan" => $tinggi_badan
+            "user_id"       => $user_id,
+            "nama_anak"     => $nama_anak,
+            "tanggal_lahir" => $tanggal_lahir,
+            "jenis_kelamin" => $jenis_kelamin
         ]
     ]);
 

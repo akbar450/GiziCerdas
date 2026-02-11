@@ -3,19 +3,26 @@ include '../db.php';
 
 header('Content-Type: application/json');
 
-$anak_id      = $_POST['anak_id'];
-$nama_anak    = $_POST['nama_anak'];
-$usia_bulan   = $_POST['usia_bulan'];
-$berat_badan  = $_POST['berat_badan'];
-$tinggi_badan = $_POST['tinggi_badan'];
+$anak_id        = $_POST['anak_id'];
+$nama_anak      = $_POST['nama_anak'];
+$tanggal_lahir  = $_POST['tanggal_lahir'];   // YYYY-MM-DD
+$jenis_kelamin  = $_POST['jenis_kelamin'];   // L / P
 
 $stmt = $conn->prepare("
     UPDATE anak 
-    SET nama_anak = ?, usia_bulan = ?, berat_badan = ?, tinggi_badan = ?
+    SET nama_anak = ?, 
+        tanggal_lahir = ?, 
+        jenis_kelamin = ?
     WHERE anak_id = ?
 ");
-$stmt->bind_param("siddi", $nama_anak, $usia_bulan, $berat_badan, $tinggi_badan, $anak_id);
 
+$stmt->bind_param(
+    "sssi",
+    $nama_anak,
+    $tanggal_lahir,
+    $jenis_kelamin,
+    $anak_id
+);
 
 if ($stmt->execute()) {
 
@@ -23,11 +30,10 @@ if ($stmt->execute()) {
         "status"  => "success",
         "message" => "Data anak berhasil diperbarui",
         "data"    => [
-            "anak_id"      => $anak_id,
-            "nama_anak"    => $nama_anak,
-            "usia_bulan"   => $usia_bulan,
-            "berat_badan"  => $berat_badan,
-            "tinggi_badan" => $tinggi_badan
+            "anak_id"       => $anak_id,
+            "nama_anak"     => $nama_anak,
+            "tanggal_lahir" => $tanggal_lahir,
+            "jenis_kelamin" => $jenis_kelamin
         ]
     ]);
 

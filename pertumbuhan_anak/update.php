@@ -4,6 +4,7 @@ include '../db.php';
 header('Content-Type: application/json');
 
 $pertumbuhan_id = $_POST['pertumbuhan_id'];
+$usia_bulan     = $_POST['usia_bulan'];
 $tanggal_catat  = $_POST['tanggal_catat'];
 $berat_badan    = $_POST['berat_badan'];
 $tinggi_badan   = $_POST['tinggi_badan'];
@@ -11,7 +12,8 @@ $keterangan     = $_POST['keterangan'];
 
 $stmt = $conn->prepare("
     UPDATE pertumbuhan_anak 
-    SET tanggal_catat = ?, 
+    SET usia_bulan = ?,
+        tanggal_catat = ?, 
         berat_badan = ?, 
         tinggi_badan = ?, 
         keterangan = ?
@@ -19,12 +21,13 @@ $stmt = $conn->prepare("
 ");
 
 $stmt->bind_param(
-    "sddsi",
-    $tanggal_catat,
-    $berat_badan,
-    $tinggi_badan,
-    $keterangan,
-    $pertumbuhan_id
+    "isddsi",
+    $usia_bulan,       // i
+    $tanggal_catat,    // s (YYYY-MM-DD)
+    $berat_badan,      // d
+    $tinggi_badan,     // d
+    $keterangan,       // s
+    $pertumbuhan_id    // i
 );
 
 if ($stmt->execute()) {
@@ -34,6 +37,7 @@ if ($stmt->execute()) {
         "message" => "Data pertumbuhan anak berhasil diperbarui",
         "data"    => [
             "pertumbuhan_id" => $pertumbuhan_id,
+            "usia_bulan"     => $usia_bulan,
             "tanggal_catat"  => $tanggal_catat,
             "berat_badan"    => $berat_badan,
             "tinggi_badan"   => $tinggi_badan,
