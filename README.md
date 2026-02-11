@@ -267,7 +267,7 @@ curl -X POST \
 http://localhost/BE-Latihan-kelas/users/create.php
 ```
 
-### Contoh Response Sukses
+**Contoh Response Sukses**
 
 ```json
 {
@@ -312,7 +312,7 @@ GET
 curl http://localhost/BE-Latihan-kelas/users/read.php
 ```
 
-### Contoh Response sukses
+**Contoh Response sukses**
 
 ```json
 {
@@ -371,12 +371,19 @@ curl -X POST \
 http://localhost/BE-Latihan-kelas/users/update.php
 ```
 
-### Contoh Response sukses
+**Contoh Response sukses**
 
 ```json
 {
-  "status": "success",
-  "message": "Data user berhasil diperbarui"
+    "status": "success",
+    "message": "Data users berhasil diperbarui",
+    "data": {
+        "user_id": "1",
+        "nama_lengkap": "Rina Pratiwi Update",
+        "email": "rina_update@gmail.com",
+        "provinsi_id": "5",
+        "tanggal_lahir": "2002-04-21"
+    }
 }
 ```
 
@@ -385,7 +392,7 @@ http://localhost/BE-Latihan-kelas/users/update.php
 ```json
 {
   "status": "error",
-  "message": "Error messege here"
+  "message": "Error message here"
 }
 ```
 
