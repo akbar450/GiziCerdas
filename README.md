@@ -504,14 +504,6 @@ GET
 
 ---
 
-## Catatan Perancangan
-
-- Database telah dinormalisasi (3NF).
-- `provinsi` dan `roles` merupakan master data.
-- `users` menyimpan foreign key, bukan data redundan.
-- JOIN digunakan untuk mengambil informasi relasional.
-
----
 
 > Modul **Users** merupakan pusat relasi sistem dan menjadi dasar bagi modul `anak`, `notifikasi`, dan relasi lainnya.
 
