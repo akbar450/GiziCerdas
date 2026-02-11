@@ -1,12 +1,18 @@
 # Gizi Cerdas – Backend API (Final Version)
 
-Gizi Cerdas adalah backend API berbasis **PHP (Native)** dan **MySQL** yang digunakan untuk memantau dan mengelola data gizi anak. Sistem ini dirancang dengan prinsip **normalisasi database (3NF)** serta mendukung relasi one-to-many dan many-to-many.
+Gizi Cerdas adalah backend API berbasis **PHP (Native)** dan **MySQL** yang digunakan untuk memantau dan mengelola data gizi anak. Sistem ini menyediakan fungsi CRUD (Create, Read, Update, Delete) untuk mengelola datagizi anak. Serta mendukung relasi one-to-many dan many-to-many.
+
+##Deskripsi
 
 Seluruh endpoint disusun dalam bentuk:
 
-- CRUD (Create, Read, Update, Delete)
-- JOIN (Relasi Antar Tabel)
-- Response dalam format JSON
+- CREATE: Menambahkan data baru
+- READ: Membaca/menampilkan data
+- UPDATE: Memperbarui data sudah ada
+- DELETE: Menghapus data
+- JOIN: Relasi Antar Tabel
+
+Semua endpoint mengembalikan respons dalam format JSON.
 
 ---
 
@@ -247,12 +253,12 @@ POST
 
 ### Parameter
 
-- role_id (int)
-- nama_lengkap (string)
-- email (string)
-- password (string)
-- provinsi_id (int)
-- tanggal_lahir (date)
+- `role_id` (int)
+- `nama_lengkap` (string)
+- `email` (string)
+- `password` (string)
+- `provinsi_id` (int)
+- `tanggal_lahir` (date)
 
 ### Contoh Request
 
@@ -267,7 +273,7 @@ curl -X POST \
 http://localhost/BE-Latihan-kelas/users/create.php
 ```
 
-**Contoh Response Sukses**
+### Contoh Response Sukses
 
 ```json
 {
@@ -283,7 +289,7 @@ http://localhost/BE-Latihan-kelas/users/create.php
 }
 ```
 
-**Contoh Response Error**
+### Contoh Response Error
 
 ```json
 {
@@ -306,13 +312,19 @@ GET
 
 - user_id (int)
 
-### Contoh Request
+### Contoh Request (Semua Data)
 
 ```bash
 curl http://localhost/BE-Latihan-kelas/users/read.php
 ```
 
-**Contoh Response sukses**
+### Contoh Request (Spesifik ID)
+
+```bash
+curl http://localhost/BE-Latihan-kelas/users/read.php?user_id=1
+```
+
+### Contoh Response Sukses
 
 ```json
 {
@@ -331,7 +343,7 @@ curl http://localhost/BE-Latihan-kelas/users/read.php
 }
 ```
 
-**Contoh Response Sukses (Data Kosong)**
+### Contoh Response Sukses (Data Kosong)
 
 ```json
 {
@@ -353,11 +365,11 @@ POST
 
 ### Parameter
 
-- user_id (int)
-- nama_lengkap (string)
-- email (string)
-- provinsi_id (int)
-- tanggal_lahir (date)
+- `user_id` (int)
+- `nama_lengkap` (string)
+- `email` (string)
+- `provinsi_id` (int)
+- `tanggal_lahir` (date)
 
 ### Contoh Request
 
@@ -371,7 +383,7 @@ curl -X POST \
 http://localhost/BE-Latihan-kelas/users/update.php
 ```
 
-**Contoh Response sukses**
+### Contoh Response sukses
 
 ```json
 {
@@ -387,7 +399,7 @@ http://localhost/BE-Latihan-kelas/users/update.php
 }
 ```
 
-**Contoh Response Error**
+### Contoh Response Error
 
 ```json
 {
@@ -409,7 +421,7 @@ POST
 
 ### Parameter
 
-- user_id (int)
+- `user_id` (int)
 
 ### Contoh Request
 
@@ -428,7 +440,7 @@ http://localhost/BE-Latihan-kelas/users/delete.php
 }
 ```
 
-**Contoh Response Error**
+### Contoh Response Error
 
 ```json
 {
@@ -462,43 +474,13 @@ ON u.role_id = r.role_id;
 
 ```json
 {
-  "user_id": 1,
-  "nama_lengkap": "Rina Pratiwi",
-  "role_name": "orang_tua"
-}
-```
-
----
-
-# READ JOIN – Users & Notifikasi
-
-Endpoint JOIN ini digunakan untuk menampilkan data user beserta notifikasi yang diterima.
-
-**URL**  
-`/users/read_join_notifikasi.php`
-
-**Method**  
-GET
-
-### Parameter (Opsional)
-
-- user_id (int)
-
-### Contoh Response
-
-```json
-{
-  "status": "success",
-  "data": [
-    {
-      "user_id": 1,
-      "nama_lengkap": "Rina Pratiwi",
-      "judul": "Pengingat MPASI",
-      "pesan": "Waktunya memberikan MPASI",
-      "tanggal_kirim": "2026-02-10 08:00:00",
-      "status": "terkirim"
-    }
-  ]
+    "status": "success",
+    "total_data": 11,
+    "data": [
+        {
+            "user_id": 1,
+            "nama_lengkap": "Rina Pratiwi",
+            "role_name": "orang_tua"
 }
 ```
 
